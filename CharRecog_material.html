@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<title>幼兒與中低年級學童識字測驗</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" href="css/style.css">
+
+<script>
+function myFunction(val) {
+  var audio = document.getElementById(val); 
+      audio.play(); 
+      setTimeout(function(){
+        for(var m=0;m<document.getElementsByName(val).length;m++){
+          document.getElementsByName(val)[m].disabled=false;}
+        }, 1000);
+      /*
+      audio.onended = function() {;
+        for (var m=0;m<document.getElementsByName(val).length;m++){
+          document.getElementsByName(val)[m].disabled=false;   
+      }*/
+    }
+
+
+function check_radio(val) {
+  var new_val = val + "_next";
+    setTimeout(function(){
+      for (var n=0;n<document.getElementsByName(val).length;n++){
+        if (document.getElementsByName(val)[n].checked){
+          document.getElementsByName(new_val)[0].disabled=false;
+      }
+    }
+  }, 500);
+}
+
+function check_grade(val) {
+  if(val<20){
+    document.getElementById("Method").disabled=false;
+  } else if (val>20) {
+    document.getElementById("Method").selectedIndex="-1";
+    document.getElementById("Method").value="-1";
+    document.getElementById("Method").disabled=true;
+  }
+}
+
+function check_info() {
+  var a = document.getElementById("subjID").value;
+  var b = document.getElementById("subjName").value;
+  var c = document.getElementById("SchoolType").value;
+  var d = document.getElementById("SchoolName").value;
+  var e = document.getElementById("Grade").value;
+  var f = document.getElementById("Tester").value;
+    if (a.length > 0 && b.length > 0 && c > 0 && d.length > 0 && e > 0 && f.length > 0 ){
+      document.getElementById("mySubmit").disabled = false;
+    } else if (a.length <= 0 || b.length <= 0 || c <= 0 || d.length <= 0 || e <= 0 || f.length <= 0 ){
+        document.getElementById("mySubmit").disabled = true;
+    }
+}
+
+function myDownload(subjID, subjID, subjName, Gender, BirthDate, ExpDate, SchoolType, SchoolName, Grade, Method, Tester, 
+  q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, q20, q21, q22, q23, q24, q25, q26, q27, q28, q29, q30, 
+  q31, q32, q33, q34, q35, q36, q37, q38, q39, q40, q41, q42, q43, q44, q45, q46, q47, q48, q49, q50, q51, q52, q53, q54, q55, q56, q57, q58, q59, q60, 
+  q61, q62, q63, q64, q65, q66, q67, q68, q69, q70, q71, q72, q73, q74, q75, q76, q77, q78, q79, q80, q81, q82, q83, q84, q85, q86, q87, q88, q89, q90) {
+  
+  var filename = subjID + '.csv'
+    var arr = new Array(subjID,subjName,Gender,BirthDate,ExpDate,SchoolType,SchoolName,Grade,Method,Tester,
+      q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q20,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,
+      q31,q32,q33,q34,q35,q36,q37,q38,q39,q40,q41,q42,q43,q44,q45,q46,q47,q48,q49,q50,q51,q52,q53,q54,q55,q56,q57,q58,q59,q60,
+      q61,q62,q63,q64,q65,q66,q67,q68,q69,q70,q71,q72,q73,q74,q75,q76,q77,q78,q79,q80,q81,q82,q83,q84,q85,q86,q87,q88,q89,q90);
+    var pom = document.createElement('a');
+
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,\ufeff' + encodeURIComponent(arr));
+    pom.setAttribute('download', filename);
+    pom.style.display = 'none';
+    document.body.appendChild(pom);
+    pom.click();
+    document.body.removeChild(pom);
+}
+
+
+</script>
+
+</head>
+<body>
+
+<form action="CharRecog_ending.html"  onsubmit="myDownload(this['subjID'].value, this['subjID'].value, this['subjName'].value, this['Gender'].value, this['BirthDate'].value, 
+this['ExpDate'].value, this['SchoolType'].value, this['SchoolName'].value, this['Grade'].value, this['Method'].value, this['Tester'].value, 
+this['q1'].value, this['q2'].value, this['q3'].value, this['q4'].value, this['q5'].value, this['q6'].value, this['q7'].value, this['q8'].value, this['q9'].value, this['q10'].value, 
+this['q11'].value, this['q12'].value, this['q13'].value, this['q14'].value, this['q15'].value, this['q16'].value, this['q17'].value, this['q18'].value, this['q19'].value, this['q20'].value, 
+this['q21'].value, this['q22'].value, this['q23'].value, this['q24'].value, this['q25'].value, this['q26'].value, this['q27'].value, this['q28'].value, this['q29'].value, this['q30'].value, 
+this['q31'].value, this['q32'].value, this['q33'].value, this['q34'].value, this['q35'].value, this['q36'].value, this['q37'].value, this['q38'].value, this['q39'].value, this['q40'].value, 
+this['q41'].value, this['q42'].value, this['q43'].value, this['q44'].value, this['q45'].value, this['q46'].value, this['q47'].value, this['q48'].value, this['q49'].value, this['q50'].value, 
+this['q51'].value, this['q52'].value, this['q53'].value, this['q54'].value, this['q55'].value, this['q56'].value, this['q57'].value, this['q58'].value, this['q59'].value, this['q60'].value, 
+this['q61'].value, this['q62'].value, this['q63'].value, this['q64'].value, this['q65'].value, this['q66'].value, this['q67'].value, this['q68'].value, this['q69'].value, this['q70'].value, 
+this['q71'].value, this['q72'].value, this['q73'].value, this['q74'].value, this['q75'].value, this['q76'].value, this['q77'].value, this['q78'].value, this['q79'].value, this['q80'].value, 
+this['q81'].value, this['q82'].value, this['q83'].value, this['q84'].value, this['q85'].value, this['q86'].value, this['q87'].value, this['q88'].value, this['q89'].value, this['q90'].value)">
+
+
+<section class="subj_info">
+  <a name="subj_info"></a><br>
+  <h1>基本資料</h1>
+      <label for="subjID">受試編號：</label>
+      <input type="text" name="subjID" id="subjID" value="" onchange="check_info()"><br>
+      <label for="subjName">受試姓名：</label>
+      <input type="text" name="subjName" id="subjName" value="" onchange="check_info()"><br>
+      <label for="Gender">受試性別：</label>
+      <input type="radio" name="Gender" id="Gender" value="1"><label for="Gender">男</label>
+      <input type="radio" name="Gender" id="Gender" value="2"><label for="Gender">女</label><br>
+      <label for="BirthDate">出生日期：</label>
+      <input type="date" name="BirthDate" id="BirthDate" value="2000-01-01" min="2000-01-01" max="2050-12-31"><br>
+      <label for="ExpDate">施測日期：</label>
+      <input type="date" name="ExpDate" id="ExpDate" value="2018-01-01" min="2018-01-01" max="2050-12-31"><br>
+      <label for="School">就讀學校：</label>
+      <select name="SchoolType" id="SchoolType" onchange="check_info()">
+        <option disabled selected value="" >---請選擇---</option>
+        <option value="1">公立</option>
+        <option value="2">私立</option>
+      </select>
+      <input type="text" name="SchoolName" id="SchoolName" value="" onchange="check_info()"><br>
+      <label for="Grade">就讀級別：</label>
+      <select name="Grade" id="Grade" onclick="check_grade(this.value);check_info()">
+        <option disabled selected value="">---請選擇---</option>
+        <option value="11">幼兒園小班</option>
+        <option value="12">幼兒園中班</option>
+        <option value="13">幼兒園大班</option>
+        <option value="21">國小一年級</option>
+        <option value="22">國小二年級</option>
+        <option value="23">國小三年級</option>
+        <option value="24">國小四年級</option>
+      </select><br>
+      <label for="Method">識字教學：</label>
+      <select name="Method" id="Method" disabled>
+        <option disabled selected value="-1">---請選擇---</option>
+        <option value="0">無</option>
+        <option value="1">分科教學</option>
+        <option value="2">生活中識字</option>
+      </select><br><br>
+      <label for="Tester">施測人員：</label>
+      <input type="text" name="Tester" id="Tester" value="" onchange="check_info()"><br><br>
+      <input type="button" class="button" style="vertical-align:middle" name="q1" id="info_ready" value="下一頁" onclick="javascript:location.href='#instruct'">
+</section>
+
+
+<section class="instruct">
+  <a name="instruct"></a><br>
+  <h1>幼兒與中低年級學童識字測驗</h1>
+  <p class="instruct_p">
+  小朋友，我們等一下要來玩一個認國字的小遊戲，每一次螢幕上會有四個字，點了畫面上的喇叭符號之後，你會聽到四個字裡面其中一個字的聲音，還有那個字組成的詞，請你聽完以後選出正確的字，單字選好後就會變成綠色，表示你選好了，可以按螢幕右下角的按鍵繼續下一題。在沒有按下一題之前，你可以改變答案。遊戲裡可能有很多字你還沒有看過或是不認識，但是沒有關係，你可以猜猜看，說不定會猜對喔。準備好了嗎？那我們開始囉！
+  </p>
+  <!--<a href="#ques1" class="next round">&#8250;</a>-->
+  <input type="button" class="button" style="vertical-align:middle" name="q1" id="test_ready" value="遊戲開始" onclick="javascript:location.href='#ques1'">
+</section>
+
+
+<section class="ques">
+  <a name="ques1"></a><br><br>
+  <input type="checkbox" class="hidden" value="q1" onclick="myFunction(this.value)" id="audio1">
+  <label class="audio-label" for="audio1">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q1" controls><source src="audio/01_一.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q1" id="q1-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q1-1">
+    <h1>一</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q1" id="q1-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q1-2">
+    <h1>四</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q1" id="q1-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q1-3">
+    <h1>二</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q1" id="q1-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q1-4">
+    <h1>三</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q1_next" id="next" value="下一題" onclick="javascript:location.href='#ques2'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques2"></a><br><br>
+  <input type="checkbox" class="hidden" value="q2" onclick="myFunction(this.value)" id="audio2">
+  <label class="audio-label" for="audio2">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q2" controls><source src="audio/02_小.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q2" id="q2-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q2-1">
+    <h1>上</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q2" id="q2-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q2-2">
+    <h1>小</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q2" id="q2-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q2-3">
+    <h1>手</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q2" id="q2-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q2-4">
+    <h1>川</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q2_next" id="next" value="下一題" onclick="javascript:location.href='#ques3'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques3"></a><br><br>
+  <input type="checkbox" class="hidden" value="q3" onclick="myFunction(this.value)" id="audio3">
+  <label class="audio-label" for="audio3">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q3" controls><source src="audio/03_六.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q3" id="q3-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q3-1">
+    <h1>主</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q3" id="q3-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q3-2">
+    <h1>大</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q3" id="q3-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q3-3">
+    <h1>三</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q3" id="q3-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q3-4">
+    <h1>六</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q3_next" id="next" value="下一題" onclick="javascript:location.href='#ques4'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques4"></a><br><br>
+  <input type="checkbox" class="hidden" value="q4" onclick="myFunction(this.value)" id="audio4">
+  <label class="audio-label" for="audio4">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q4" controls><source src="audio/04_人.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q4" id="q4-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q4-1">
+    <h1>人</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q4" id="q4-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q4-2">
+    <h1>天</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q4" id="q4-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q4-3">
+    <h1>二</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q4" id="q4-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q4-4">
+    <h1>大</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q4_next" id="next" value="下一題" onclick="javascript:location.href='#ques5'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques5"></a><br><br>
+  <input type="checkbox" class="hidden" value="q5" onclick="myFunction(this.value)" id="audio5">
+  <label class="audio-label" for="audio5">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q5" controls><source src="audio/05_中.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q5" id="q5-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q5-1">
+    <h1>干</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q5" id="q5-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q5-2">
+    <h1>中</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q5" id="q5-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q5-3">
+    <h1>串</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q5" id="q5-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q5-4">
+    <h1>十</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q5_next" id="next" value="下一題" onclick="javascript:location.href='#ques6'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques6"></a><br><br>
+  <input type="checkbox" class="hidden" value="q6" onclick="myFunction(this.value)" id="audio6">
+  <label class="audio-label" for="audio6">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q6" controls><source src="audio/06_王.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q6" id="q6-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q6-1">
+    <h1>王</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q6" id="q6-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q6-2">
+    <h1>工</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q6" id="q6-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q6-3">
+    <h1>士</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q6" id="q6-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q6-4">
+    <h1>土</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q6_next" id="next" value="下一題" onclick="javascript:location.href='#ques7'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques7"></a><br><br>
+  <input type="checkbox" class="hidden" value="q7" onclick="myFunction(this.value)" id="audio7">
+  <label class="audio-label" for="audio7">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q7" controls><source src="audio/07_天.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q7" id="q7-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q7-1">
+    <h1>王</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q7" id="q7-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q7-2">
+    <h1>市</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q7" id="q7-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q7-3">
+    <h1>天</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q7" id="q7-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q7-4">
+    <h1>大</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q7_next" id="next" value="下一題" onclick="javascript:location.href='#ques8'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques8"></a><br><br>
+  <input type="checkbox" class="hidden" value="q8" onclick="myFunction(this.value)" id="audio8">
+  <label class="audio-label" for="audio8">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q8" controls><source src="audio/08_上.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q8" id="q8-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q8-1">
+    <h1>下</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q8" id="q8-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q8-2">
+    <h1>卜</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q8" id="q8-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q8-3">
+    <h1>上</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q8" id="q8-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q8-4">
+    <h1>土</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q8_next" id="next" value="下一題" onclick="javascript:location.href='#ques9'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques9"></a><br><br>
+  <input type="checkbox" class="hidden" value="q9" onclick="myFunction(this.value)" id="audio9">
+  <label class="audio-label" for="audio9">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q9" controls><source src="audio/09_心.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q9" id="q9-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q9-1">
+    <h1>心</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q9" id="q9-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q9-2">
+    <h1>魚</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q9" id="q9-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q9-3">
+    <h1>水</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q9" id="q9-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q9-4">
+    <h1>火</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q9_next" id="next" value="下一題" onclick="javascript:location.href='#ques10'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques10"></a><br><br>
+  <input type="checkbox" class="hidden" value="q10" onclick="myFunction(this.value)" id="audio10">
+  <label class="audio-label" for="audio10">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q10" controls><source src="audio/10_火.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q10" id="q10-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q10-1">
+    <h1>炎</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q10" id="q10-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q10-2">
+    <h1>水</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q10" id="q10-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q10-3">
+    <h1>大</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q10" id="q10-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q10-4">
+    <h1>火</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q10_next" id="next" value="下一題" onclick="javascript:location.href='#ques11'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques11"></a><br><br>
+  <input type="checkbox" class="hidden" value="q11" onclick="myFunction(this.value)" id="audio11">
+  <label class="audio-label" for="audio11">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q11" controls><source src="audio/11_不.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q11" id="q11-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q11-1">
+    <h1>丕</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q11" id="q11-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q11-2">
+    <h1>否</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q11" id="q11-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q11-3">
+    <h1>不</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q11" id="q11-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q11-4">
+    <h1>六</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q11_next" id="next" value="下一題" onclick="javascript:location.href='#ques12'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques12"></a><br><br>
+  <input type="checkbox" class="hidden" value="q12" onclick="myFunction(this.value)" id="audio12">
+  <label class="audio-label" for="audio12">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q12" controls><source src="audio/12_花.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q12" id="q12-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q12-1">
+    <h1>述</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q12" id="q12-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q12-2">
+    <h1>花</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q12" id="q12-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q12-3">
+    <h1>話</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q12" id="q12-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q12-4">
+    <h1>草</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q12_next" id="next" value="下一題" onclick="javascript:location.href='#ques13'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques13"></a><br><br>
+  <input type="checkbox" class="hidden" value="q13" onclick="myFunction(this.value)" id="audio13">
+  <label class="audio-label" for="audio13">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q13" controls><source src="audio/13_山.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q13" id="q13-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q13-1">
+    <h1>山</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q13" id="q13-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q13-2">
+    <h1>川</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q13" id="q13-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q13-3">
+    <h1>甲</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q13" id="q13-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q13-4">
+    <h1>出</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q13_next" id="next" value="下一題" onclick="javascript:location.href='#ques14'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques14"></a><br><br>
+  <input type="checkbox" class="hidden" value="q14" onclick="myFunction(this.value)" id="audio14">
+  <label class="audio-label" for="audio14">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q14" controls><source src="audio/14_白.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q14" id="q14-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q14-1">
+    <h1>百</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q14" id="q14-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q14-2">
+    <h1>月</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q14" id="q14-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q14-3">
+    <h1>白</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q14" id="q14-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q14-4">
+    <h1>日</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q14_next" id="next" value="下一題" onclick="javascript:location.href='#ques15'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques15"></a><br><br>
+  <input type="checkbox" class="hidden" value="q15" onclick="myFunction(this.value)" id="audio15">
+  <label class="audio-label" for="audio15">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q15" controls><source src="audio/15_木.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q15" id="q15-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q15-1">
+    <h1>禾</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q15" id="q15-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q15-2">
+    <h1>千</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q15" id="q15-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q15-3">
+    <h1>大</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q15" id="q15-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q15-4">
+    <h1>木</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q15_next" id="next" value="下一題" onclick="javascript:location.href='#ques16'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques16"></a><br><br>
+  <input type="checkbox" class="hidden" value="q16" onclick="myFunction(this.value)" id="audio16">
+  <label class="audio-label" for="audio16">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q16" controls><source src="audio/16_月.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q16" id="q16-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q16-1">
+    <h1>日</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q16" id="q16-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q16-2">
+    <h1>曰</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q16" id="q16-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q16-3">
+    <h1>月</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q16" id="q16-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q16-4">
+    <h1>肉</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q16_next" id="next" value="下一題" onclick="javascript:location.href='#ques17'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques17"></a><br><br>
+  <input type="checkbox" class="hidden" value="q17" onclick="myFunction(this.value)" id="audio17">
+  <label class="audio-label" for="audio17">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q17" controls><source src="audio/17_車.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q17" id="q17-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q17-1">
+    <h1>申</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q17" id="q17-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q17-2">
+    <h1>甲</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q17" id="q17-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q17-3">
+    <h1>果</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q17" id="q17-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q17-4">
+    <h1>車</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q17_next" id="next" value="下一題" onclick="javascript:location.href='#ques18'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques18"></a><br><br>
+  <input type="checkbox" class="hidden" value="q18" onclick="myFunction(this.value)" id="audio18">
+  <label class="audio-label" for="audio18">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q18" controls><source src="audio/18_林.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q18" id="q18-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q18-1">
+    <h1>焚</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q18" id="q18-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q18-2">
+    <h1>林</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q18" id="q18-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q18-3">
+    <h1>材</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q18" id="q18-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q18-4">
+    <h1>吋</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q18_next" id="next" value="下一題" onclick="javascript:location.href='#ques19'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques19"></a><br><br>
+  <input type="checkbox" class="hidden" value="q19" onclick="myFunction(this.value)" id="audio19">
+  <label class="audio-label" for="audio19">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q19" controls><source src="audio/19_美.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q19" id="q19-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q19-1">
+    <h1>美</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q19" id="q19-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q19-2">
+    <h1>恙</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q19" id="q19-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q19-3">
+    <h1>羨</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q19" id="q19-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q19-4">
+    <h1>祥</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q19_next" id="next" value="下一題" onclick="javascript:location.href='#ques20'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques20"></a><br><br>
+  <input type="checkbox" class="hidden" value="q20" onclick="myFunction(this.value)" id="audio20">
+  <label class="audio-label" for="audio20">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q20" controls><source src="audio/20_老.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q20" id="q20-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q20-1">
+    <h1>者</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q20" id="q20-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q20-2">
+    <h1>老</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q20" id="q20-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q20-3">
+    <h1>考</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q20" id="q20-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q20-4">
+    <h1>羅</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q20_next" id="next" value="下一題" onclick="javascript:location.href='#ques21'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques21"></a><br><br>
+  <input type="checkbox" class="hidden" value="q21" onclick="myFunction(this.value)" id="audio21">
+  <label class="audio-label" for="audio21">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q21" controls><source src="audio/21_狗.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q21" id="q21-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q21-1">
+    <h1>佝</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q21" id="q21-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q21-2">
+    <h1>狼</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q21" id="q21-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q21-3">
+    <h1>豺</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q21" id="q21-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q21-4">
+    <h1>狗</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q21_next" id="next" value="下一題" onclick="javascript:location.href='#ques22'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques22"></a><br><br>
+  <input type="checkbox" class="hidden" value="q22" onclick="myFunction(this.value)" id="audio22">
+  <label class="audio-label" for="audio22">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q22" controls><source src="audio/22_元.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q22" id="q22-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q22-1">
+    <h1>允</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q22" id="q22-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q22-2">
+    <h1>元</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q22" id="q22-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q22-3">
+    <h1>兀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q22" id="q22-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q22-4">
+    <h1>弁</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q22_next" id="next" value="下一題" onclick="javascript:location.href='#ques23'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques23"></a><br><br>
+  <input type="checkbox" class="hidden" value="q23" onclick="myFunction(this.value)" id="audio23">
+  <label class="audio-label" for="audio23">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q23" controls><source src="audio/23_生.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q23" id="q23-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q23-1">
+    <h1>玉</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q23" id="q23-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q23-2">
+    <h1>出</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q23" id="q23-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q23-3">
+    <h1>生</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q23" id="q23-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q23-4">
+    <h1>牛</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q23_next" id="next" value="下一題" onclick="javascript:location.href='#ques24'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques24"></a><br><br>
+  <input type="checkbox" class="hidden" value="q24" onclick="myFunction(this.value)" id="audio24">
+  <label class="audio-label" for="audio24">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q24" controls><source src="audio/24_西.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q24" id="q24-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q24-1">
+    <h1>東</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q24" id="q24-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q24-2">
+    <h1>西</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q24" id="q24-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q24-3">
+    <h1>早</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q24" id="q24-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q24-4">
+    <h1>晒</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q24_next" id="next" value="下一題" onclick="javascript:location.href='#ques25'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques25"></a><br><br>
+  <input type="checkbox" class="hidden" value="q25" onclick="myFunction(this.value)" id="audio25">
+  <label class="audio-label" for="audio25">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q25" controls><source src="audio/25_風.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q25" id="q25-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q25-1">
+    <h1>鳳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q25" id="q25-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q25-2">
+    <h1>飛</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q25" id="q25-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q25-3">
+    <h1>嵐</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q25" id="q25-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q25-4">
+    <h1>風</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q25_next" id="next" value="下一題" onclick="javascript:location.href='#ques26'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques26"></a><br><br>
+  <input type="checkbox" class="hidden" value="q26" onclick="myFunction(this.value)" id="audio26">
+  <label class="audio-label" for="audio26">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q26" controls><source src="audio/26_門.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q26" id="q26-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q26-1">
+    <h1>閂</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q26" id="q26-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q26-2">
+    <h1>開</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q26" id="q26-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q26-3">
+    <h1>門</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q26" id="q26-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q26-4">
+    <h1>鬥</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q26_next" id="next" value="下一題" onclick="javascript:location.href='#ques27'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques27"></a><br><br>
+  <input type="checkbox" class="hidden" value="q27" onclick="myFunction(this.value)" id="audio27">
+  <label class="audio-label" for="audio27">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q27" controls><source src="audio/27_力.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q27" id="q27-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q27-1">
+    <h1>刃</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q27" id="q27-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q27-2">
+    <h1>肋</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q27" id="q27-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q27-3">
+    <h1>刀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q27" id="q27-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q27-4">
+    <h1>力</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q27_next" id="next" value="下一題" onclick="javascript:location.href='#ques28'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques28"></a><br><br>
+  <input type="checkbox" class="hidden" value="q28" onclick="myFunction(this.value)" id="audio28">
+  <label class="audio-label" for="audio28">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q28" controls><source src="audio/28_平.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q28" id="q28-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q28-1">
+    <h1>正</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q28" id="q28-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q28-2">
+    <h1>半</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q28" id="q28-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q28-3">
+    <h1>玉</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q28" id="q28-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q28-4">
+    <h1>平</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q28_next" id="next" value="下一題" onclick="javascript:location.href='#ques29'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques29"></a><br><br>
+  <input type="checkbox" class="hidden" value="q29" onclick="myFunction(this.value)" id="audio29">
+  <label class="audio-label" for="audio29">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q29" controls><source src="audio/29_土.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q29" id="q29-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q29-1">
+    <h1>土</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q29" id="q29-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q29-2">
+    <h1>士</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q29" id="q29-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q29-3">
+    <h1>主</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q29" id="q29-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q29-4">
+    <h1>王</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q29_next" id="next" value="下一題" onclick="javascript:location.href='#ques30'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques30"></a><br><br>
+  <input type="checkbox" class="hidden" value="q30" onclick="myFunction(this.value)" id="audio30">
+  <label class="audio-label" for="audio30">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q30" controls><source src="audio/30_高.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q30" id="q30-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q30-1">
+    <h1>商</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q30" id="q30-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q30-2">
+    <h1>蒿</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q30" id="q30-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q30-3">
+    <h1>高</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q30" id="q30-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q30-4">
+    <h1>靠</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q30_next" id="next" value="下一題" onclick="javascript:location.href='#ques31'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques31"></a><br><br>
+  <input type="checkbox" class="hidden" value="q31" onclick="myFunction(this.value)" id="audio31">
+  <label class="audio-label" for="audio31">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q31" controls><source src="audio/31_台.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q31" id="q31-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q31-1">
+    <h1>客</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q31" id="q31-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q31-2">
+    <h1>台</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q31" id="q31-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q31-3">
+    <h1>怠</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q31" id="q31-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q31-4">
+    <h1>各</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q31_next" id="next" value="下一題" onclick="javascript:location.href='#ques32'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques32"></a><br><br>
+  <input type="checkbox" class="hidden" value="q32" onclick="myFunction(this.value)" id="audio32">
+  <label class="audio-label" for="audio32">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q32" controls><source src="audio/32_電.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q32" id="q32-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q32-1">
+    <h1>雪</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q32" id="q32-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q32-2">
+    <h1>雨</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q32" id="q32-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q32-3">
+    <h1>雷</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q32" id="q32-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q32-4">
+    <h1>電</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q32_next" id="next" value="下一題" onclick="javascript:location.href='#ques33'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques33"></a><br><br>
+  <input type="checkbox" class="hidden" value="q33" onclick="myFunction(this.value)" id="audio33">
+  <label class="audio-label" for="audio33">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q33" controls><source src="audio/33_正.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q33" id="q33-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q33-1">
+    <h1>下</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q33" id="q33-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q33-2">
+    <h1>正</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q33" id="q33-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q33-3">
+    <h1>止</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q33" id="q33-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q33-4">
+    <h1>玉</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q33_next" id="next" value="下一題" onclick="javascript:location.href='#ques34'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques34"></a><br><br>
+  <input type="checkbox" class="hidden" value="q34" onclick="myFunction(this.value)" id="audio34">
+  <label class="audio-label" for="audio34">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q34" controls><source src="audio/34_亮.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q34" id="q34-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q34-1">
+    <h1>売</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q34" id="q34-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q34-2">
+    <h1>等</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q34" id="q34-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q34-3">
+    <h1>亮</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q34" id="q34-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q34-4">
+    <h1>毫</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q34_next" id="next" value="下一題" onclick="javascript:location.href='#ques35'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques35"></a><br><br>
+  <input type="checkbox" class="hidden" value="q35" onclick="myFunction(this.value)" id="audio35">
+  <label class="audio-label" for="audio35">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q35" controls><source src="audio/35_李.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q35" id="q35-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q35-1">
+    <h1>李</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q35" id="q35-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q35-2">
+    <h1>季</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q35" id="q35-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q35-3">
+    <h1>呆</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q35" id="q35-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q35-4">
+    <h1>杏</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q35_next" id="next" value="下一題" onclick="javascript:location.href='#ques36'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques36"></a><br><br>
+  <input type="checkbox" class="hidden" value="q36" onclick="myFunction(this.value)" id="audio36">
+  <label class="audio-label" for="audio36">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q36" controls><source src="audio/36_松.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q36" id="q36-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q36-1">
+    <h1>訟</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q36" id="q36-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q36-2">
+    <h1>松</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q36" id="q36-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q36-3">
+    <h1>柏</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q36" id="q36-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q36-4">
+    <h1>衷</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q36_next" id="next" value="下一題" onclick="javascript:location.href='#ques37'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques37"></a><br><br>
+  <input type="checkbox" class="hidden" value="q37" onclick="myFunction(this.value)" id="audio37">
+  <label class="audio-label" for="audio37">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q37" controls><source src="audio/37_青.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q37" id="q37-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q37-1">
+    <h1>青</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q37" id="q37-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q37-2">
+    <h1>春</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q37" id="q37-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q37-3">
+    <h1>肯</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q37" id="q37-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q37-4">
+    <h1>精</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q37_next" id="next" value="下一題" onclick="javascript:location.href='#ques38'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques38"></a><br><br>
+  <input type="checkbox" class="hidden" value="q38" onclick="myFunction(this.value)" id="audio38">
+  <label class="audio-label" for="audio38">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q38" controls><source src="audio/38_空.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q38" id="q38-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q38-1">
+    <h1>空</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q38" id="q38-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q38-2">
+    <h1>共</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q38" id="q38-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q38-3">
+    <h1>恐</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q38" id="q38-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q38-4">
+    <h1>窒</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q38_next" id="next" value="下一題" onclick="javascript:location.href='#ques39'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques39"></a><br><br>
+  <input type="checkbox" class="hidden" value="q39" onclick="myFunction(this.value)" id="audio39">
+  <label class="audio-label" for="audio39">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q39" controls><source src="audio/39_打.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q39" id="q39-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q39-1">
+    <h1>釘</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q39" id="q39-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q39-2">
+    <h1>汀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q39" id="q39-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q39-3">
+    <h1>扛</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q39" id="q39-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q39-4">
+    <h1>打</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q39_next" id="next" value="下一題" onclick="javascript:location.href='#ques40'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques40"></a><br><br>
+  <input type="checkbox" class="hidden" value="q40" onclick="myFunction(this.value)" id="audio40">
+  <label class="audio-label" for="audio40">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q40" controls><source src="audio/40_龍.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q40" id="q40-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q40-1">
+    <h1>鳳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q40" id="q40-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q40-2">
+    <h1>竉</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q40" id="q40-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q40-3">
+    <h1>龍</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q40" id="q40-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q40-4">
+    <h1>襲</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q40_next" id="next" value="下一題" onclick="javascript:location.href='#ques41'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques41"></a><br><br>
+  <input type="checkbox" class="hidden" value="q41" onclick="myFunction(this.value)" id="audio41">
+  <label class="audio-label" for="audio41">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q41" controls><source src="audio/41_新.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q41" id="q41-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q41-1">
+    <h1>靳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q41" id="q41-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q41-2">
+    <h1>折</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q41" id="q41-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q41-3">
+    <h1>親</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q41" id="q41-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q41-4">
+    <h1>新</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q41_next" id="next" value="下一題" onclick="javascript:location.href='#ques42'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques42"></a><br><br>
+  <input type="checkbox" class="hidden" value="q42" onclick="myFunction(this.value)" id="audio42">
+  <label class="audio-label" for="audio42">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q42" controls><source src="audio/42_喝.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q42" id="q42-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q42-1">
+    <h1>渴</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q42" id="q42-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q42-2">
+    <h1>曷</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q42" id="q42-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q42-3">
+    <h1>葛</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q42" id="q42-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q42-4">
+    <h1>喝</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q42_next" id="next" value="下一題" onclick="javascript:location.href='#ques43'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques43"></a><br><br>
+  <input type="checkbox" class="hidden" value="q43" onclick="myFunction(this.value)" id="audio43">
+  <label class="audio-label" for="audio43">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q43" controls><source src="audio/43_樹.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q43" id="q43-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q43-1">
+    <h1>材</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q43" id="q43-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q43-2">
+    <h1>草</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q43" id="q43-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q43-3">
+    <h1>樹</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q43" id="q43-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q43-4">
+    <h1>討</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q43_next" id="next" value="下一題" onclick="javascript:location.href='#ques44'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques44"></a><br><br>
+  <input type="checkbox" class="hidden" value="q44" onclick="myFunction(this.value)" id="audio44">
+  <label class="audio-label" for="audio44">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q44" controls><source src="audio/44_所.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q44" id="q44-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q44-1">
+    <h1>報</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q44" id="q44-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q44-2">
+    <h1>啟</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q44" id="q44-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q44-3">
+    <h1>祈</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q44" id="q44-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q44-4">
+    <h1>所</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q44_next" id="next" value="下一題" onclick="javascript:location.href='#ques45'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques45"></a><br><br>
+  <input type="checkbox" class="hidden" value="q45" onclick="myFunction(this.value)" id="audio45">
+  <label class="audio-label" for="audio45">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q45" controls><source src="audio/45_寫.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q45" id="q45-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q45-1">
+    <h1>潟</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q45" id="q45-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q45-2">
+    <h1>寶</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q45" id="q45-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q45-3">
+    <h1>蓉</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q45" id="q45-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q45-4">
+    <h1>寫</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q45_next" id="next" value="下一題" onclick="javascript:location.href='#ques46'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques46"></a><br><br>
+  <input type="checkbox" class="hidden" value="q46" onclick="myFunction(this.value)" id="audio46">
+  <label class="audio-label" for="audio46">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q46" controls><source src="audio/46_桌.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q46" id="q46-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q46-1">
+    <h1>卓</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q46" id="q46-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q46-2">
+    <h1>早</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q46" id="q46-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q46-3">
+    <h1>椅</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q46" id="q46-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q46-4">
+    <h1>桌</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q46_next" id="next" value="下一題" onclick="javascript:location.href='#ques47'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques47"></a><br><br>
+  <input type="checkbox" class="hidden" value="q47" onclick="myFunction(this.value)" id="audio47">
+  <label class="audio-label" for="audio47">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q47" controls><source src="audio/47_鮮.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q47" id="q47-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q47-1">
+    <h1>鱈</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q47" id="q47-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q47-2">
+    <h1>祥</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q47" id="q47-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q47-3">
+    <h1>顧</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q47" id="q47-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q47-4">
+    <h1>鮮</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q47_next" id="next" value="下一題" onclick="javascript:location.href='#ques48'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques48"></a><br><br>
+  <input type="checkbox" class="hidden" value="q48" onclick="myFunction(this.value)" id="audio48">
+  <label class="audio-label" for="audio48">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q48" controls><source src="audio/48_歡.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q48" id="q48-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q48-1">
+    <h1>觀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q48" id="q48-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q48-2">
+    <h1>就</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q48" id="q48-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q48-3">
+    <h1>認</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q48" id="q48-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q48-4">
+    <h1>歡</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q48_next" id="next" value="下一題" onclick="javascript:location.href='#ques49'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques49"></a><br><br>
+  <input type="checkbox" class="hidden" value="q49" onclick="myFunction(this.value)" id="audio49">
+  <label class="audio-label" for="audio49">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q49" controls><source src="audio/49_己.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q49" id="q49-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q49-1">
+    <h1>己</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q49" id="q49-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q49-2">
+    <h1>巳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q49" id="q49-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q49-3">
+    <h1>已</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q49" id="q49-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q49-4">
+    <h1>巴</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q49_next" id="next" value="下一題" onclick="javascript:location.href='#ques50'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques50"></a><br><br>
+  <input type="checkbox" class="hidden" value="q50" onclick="myFunction(this.value)" id="audio50">
+  <label class="audio-label" for="audio50">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q50" controls><source src="audio/50_島.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q50" id="q50-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q50-1">
+    <h1>烏</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q50" id="q50-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q50-2">
+    <h1>馬</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q50" id="q50-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q50-3">
+    <h1>鳥</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q50" id="q50-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q50-4">
+    <h1>島</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q50_next" id="next" value="下一題" onclick="javascript:location.href='#ques51'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques51"></a><br><br>
+  <input type="checkbox" class="hidden" value="q51" onclick="myFunction(this.value)" id="audio51">
+  <label class="audio-label" for="audio51">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q51" controls><source src="audio/51_獵.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q51" id="q51-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q51-1">
+    <h1>獵</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q51" id="q51-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q51-2">
+    <h1>蠟</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q51" id="q51-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q51-3">
+    <h1>胤</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q51" id="q51-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q51-4">
+    <h1>綸</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q51_next" id="next" value="下一題" onclick="javascript:location.href='#ques52'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques52"></a><br><br>
+  <input type="checkbox" class="hidden" value="q52" onclick="myFunction(this.value)" id="audio52">
+  <label class="audio-label" for="audio52">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q52" controls><source src="audio/52_博.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q52" id="q52-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q52-1">
+    <h1>傳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q52" id="q52-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q52-2">
+    <h1>陣</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q52" id="q52-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q52-3">
+    <h1>博</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q52" id="q52-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q52-4">
+    <h1>傅</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q52_next" id="next" value="下一題" onclick="javascript:location.href='#ques53'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques53"></a><br><br>
+  <input type="checkbox" class="hidden" value="q53" onclick="myFunction(this.value)" id="audio53">
+  <label class="audio-label" for="audio53">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q53" controls><source src="audio/53_擎.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q53" id="q53-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q53-1">
+    <h1>鴛</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q53" id="q53-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q53-2">
+    <h1>擎</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q53" id="q53-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q53-3">
+    <h1>臀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q53" id="q53-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q53-4">
+    <h1>驚</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q53_next" id="next" value="下一題" onclick="javascript:location.href='#ques54'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques54"></a><br><br>
+  <input type="checkbox" class="hidden" value="q54" onclick="myFunction(this.value)" id="audio54">
+  <label class="audio-label" for="audio54">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q54" controls><source src="audio/54_蝶.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q54" id="q54-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q54-1">
+    <h1>跌</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q54" id="q54-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q54-2">
+    <h1>蝶</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q54" id="q54-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q54-3">
+    <h1>蝴</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q54" id="q54-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q54-4">
+    <h1>葉</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q54_next" id="next" value="下一題" onclick="javascript:location.href='#ques55'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques55"></a><br><br>
+  <input type="checkbox" class="hidden" value="q55" onclick="myFunction(this.value)" id="audio55">
+  <label class="audio-label" for="audio55">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q55" controls><source src="audio/55_績.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q55" id="q55-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q55-1">
+    <h1>績</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q55" id="q55-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q55-2">
+    <h1>機</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q55" id="q55-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q55-3">
+    <h1>續</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q55" id="q55-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q55-4">
+    <h1>積</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q55_next" id="next" value="下一題" onclick="javascript:location.href='#ques56'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques56"></a><br><br>
+  <input type="checkbox" class="hidden" value="q56" onclick="myFunction(this.value)" id="audio56">
+  <label class="audio-label" for="audio56">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q56" controls><source src="audio/56_聰.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q56" id="q56-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q56-1">
+    <h1>聰</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q56" id="q56-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q56-2">
+    <h1>囪</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q56" id="q56-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q56-3">
+    <h1>蔥</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q56" id="q56-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q56-4">
+    <h1>聽</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q56_next" id="next" value="下一題" onclick="javascript:location.href='#ques57'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques57"></a><br><br>
+  <input type="checkbox" class="hidden" value="q57" onclick="myFunction(this.value)" id="audio57">
+  <label class="audio-label" for="audio57">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q57" controls><source src="audio/57_脾.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q57" id="q57-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q57-1">
+    <h1>皮</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q57" id="q57-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q57-2">
+    <h1>啤</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q57" id="q57-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q57-3">
+    <h1>脾</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q57" id="q57-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q57-4">
+    <h1>肺</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q57_next" id="next" value="下一題" onclick="javascript:location.href='#ques58'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques58"></a><br><br>
+  <input type="checkbox" class="hidden" value="q58" onclick="myFunction(this.value)" id="audio58">
+  <label class="audio-label" for="audio58">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q58" controls><source src="audio/58_隔.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q58" id="q58-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q58-1">
+    <h1>槁</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q58" id="q58-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q58-2">
+    <h1>搞</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q58" id="q58-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q58-3">
+    <h1>隔</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q58" id="q58-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q58-4">
+    <h1>阪</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q58_next" id="next" value="下一題" onclick="javascript:location.href='#ques59'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques59"></a><br><br>
+  <input type="checkbox" class="hidden" value="q59" onclick="myFunction(this.value)" id="audio59">
+  <label class="audio-label" for="audio59">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q59" controls><source src="audio/59_紀.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q59" id="q59-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q59-1">
+    <h1>歲</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q59" id="q59-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q59-2">
+    <h1>紀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q59" id="q59-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q59-3">
+    <h1>計</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q59" id="q59-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q59-4">
+    <h1>記</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q59_next" id="next" value="下一題" onclick="javascript:location.href='#ques60'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques60"></a><br><br>
+  <input type="checkbox" class="hidden" value="q60" onclick="myFunction(this.value)" id="audio60">
+  <label class="audio-label" for="audio60">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q60" controls><source src="audio/60_端.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q60" id="q60-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q60-1">
+    <h1>午</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q60" id="q60-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q60-2">
+    <h1>瑞</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q60" id="q60-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q60-3">
+    <h1>端</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q60" id="q60-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q60-4">
+    <h1>站</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q60_next" id="next" value="下一題" onclick="javascript:location.href='#ques61'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques61"></a><br><br>
+  <input type="checkbox" class="hidden" value="q61" onclick="myFunction(this.value)" id="audio61">
+  <label class="audio-label" for="audio61">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q61" controls><source src="audio/61_拖.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q61" id="q61-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q61-1">
+    <h1>脫</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q61" id="q61-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q61-2">
+    <h1>拖</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q61" id="q61-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q61-3">
+    <h1>托</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q61" id="q61-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q61-4">
+    <h1>拉</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q61_next" id="next" value="下一題" onclick="javascript:location.href='#ques62'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques62"></a><br><br>
+  <input type="checkbox" class="hidden" value="q62" onclick="myFunction(this.value)" id="audio62">
+  <label class="audio-label" for="audio62">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q62" controls><source src="audio/62_繞.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q62" id="q62-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q62-1">
+    <h1>繞</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q62" id="q62-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q62-2">
+    <h1>隢</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q62" id="q62-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q62-3">
+    <h1>澆</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q62" id="q62-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q62-4">
+    <h1>饒</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q62_next" id="next" value="下一題" onclick="javascript:location.href='#ques63'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques63"></a><br><br>
+  <input type="checkbox" class="hidden" value="q63" onclick="myFunction(this.value)" id="audio63">
+  <label class="audio-label" for="audio63">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q63" controls><source src="audio/63_羨.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q63" id="q63-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q63-1">
+    <h1>羨</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q63" id="q63-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q63-2">
+    <h1>獻</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q63" id="q63-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q63-3">
+    <h1>芡</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q63" id="q63-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q63-4">
+    <h1>羹</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q63_next" id="next" value="下一題" onclick="javascript:location.href='#ques64'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques64"></a><br><br>
+  <input type="checkbox" class="hidden" value="q64" onclick="myFunction(this.value)" id="audio64">
+  <label class="audio-label" for="audio64">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q64" controls><source src="audio/64_耀.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q64" id="q64-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q64-1">
+    <h1>耀</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q64" id="q64-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q64-2">
+    <h1>要</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q64" id="q64-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q64-3">
+    <h1>輝</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q64" id="q64-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q64-4">
+    <h1>曜</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q64_next" id="next" value="下一題" onclick="javascript:location.href='#ques65'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques65"></a><br><br>
+  <input type="checkbox" class="hidden" value="q65" onclick="myFunction(this.value)" id="audio65">
+  <label class="audio-label" for="audio65">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q65" controls><source src="audio/65_徑.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q65" id="q65-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q65-1">
+    <h1>徑</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q65" id="q65-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q65-2">
+    <h1>逕</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q65" id="q65-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q65-3">
+    <h1>境</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q65" id="q65-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q65-4">
+    <h1>勁</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q65_next" id="next" value="下一題" onclick="javascript:location.href='#ques66'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques66"></a><br><br>
+  <input type="checkbox" class="hidden" value="q66" onclick="myFunction(this.value)" id="audio66">
+  <label class="audio-label" for="audio66">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q66" controls><source src="audio/66_療.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q66" id="q66-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q66-1">
+    <h1>聊</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q66" id="q66-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q66-2">
+    <h1>療</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q66" id="q66-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q66-3">
+    <h1>痊</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q66" id="q66-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q66-4">
+    <h1>潦</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q66_next" id="next" value="下一題" onclick="javascript:location.href='#ques67'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques67"></a><br><br>
+  <input type="checkbox" class="hidden" value="q67" onclick="myFunction(this.value)" id="audio67">
+  <label class="audio-label" for="audio67">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q67" controls><source src="audio/67_網.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q67" id="q67-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q67-1">
+    <h1>網</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q67" id="q67-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q67-2">
+    <h1>往</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q67" id="q67-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q67-3">
+    <h1>羅</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q67" id="q67-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q67-4">
+    <h1>綱</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q67_next" id="next" value="下一題" onclick="javascript:location.href='#ques68'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques68"></a><br><br>
+  <input type="checkbox" class="hidden" value="q68" onclick="myFunction(this.value)" id="audio68">
+  <label class="audio-label" for="audio68">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q68" controls><source src="audio/68_耗.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q68" id="q68-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q68-1">
+    <h1>號</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q68" id="q68-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q68-2">
+    <h1>旄</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q68" id="q68-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q68-3">
+    <h1>耗</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q68" id="q68-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q68-4">
+    <h1>耨</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q68_next" id="next" value="下一題" onclick="javascript:location.href='#ques69'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques69"></a><br><br>
+  <input type="checkbox" class="hidden" value="q69" onclick="myFunction(this.value)" id="audio69">
+  <label class="audio-label" for="audio69">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q69" controls><source src="audio/69_鞠.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q69" id="q69-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q69-1">
+    <h1>掬</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q69" id="q69-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q69-2">
+    <h1>恭</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q69" id="q69-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q69-3">
+    <h1>舉</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q69" id="q69-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q69-4">
+    <h1>鞠</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q69_next" id="next" value="下一題" onclick="javascript:location.href='#ques70'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques70"></a><br><br>
+  <input type="checkbox" class="hidden" value="q70" onclick="myFunction(this.value)" id="audio70">
+  <label class="audio-label" for="audio70">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q70" controls><source src="audio/70_漱.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q70" id="q70-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q70-1">
+    <h1>嗽</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q70" id="q70-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q70-2">
+    <h1>敕</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q70" id="q70-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q70-3">
+    <h1>數</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q70" id="q70-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q70-4">
+    <h1>漱</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q70_next" id="next" value="下一題" onclick="javascript:location.href='#ques71'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques71"></a><br><br>
+  <input type="checkbox" class="hidden" value="q71" onclick="myFunction(this.value)" id="audio71">
+  <label class="audio-label" for="audio71">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q71" controls><source src="audio/71_聆.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q71" id="q71-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q71-1">
+    <h1>聄</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q71" id="q71-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q71-2">
+    <h1>鈴</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q71" id="q71-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q71-3">
+    <h1>玲</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q71" id="q71-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q71-4">
+    <h1>聆</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q71_next" id="next" value="下一題" onclick="javascript:location.href='#ques72'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques72"></a><br><br>
+  <input type="checkbox" class="hidden" value="q72" onclick="myFunction(this.value)" id="audio72">
+  <label class="audio-label" for="audio72">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q72" controls><source src="audio/72_恍.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q72" id="q72-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q72-1">
+    <h1>惚</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q72" id="q72-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q72-2">
+    <h1>淆</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q72" id="q72-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q72-3">
+    <h1>幌</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q72" id="q72-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q72-4">
+    <h1>恍</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q72_next" id="next" value="下一題" onclick="javascript:location.href='#ques73'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques73"></a><br><br>
+  <input type="checkbox" class="hidden" value="q73" onclick="myFunction(this.value)" id="audio73">
+  <label class="audio-label" for="audio73">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q73" controls><source src="audio/73_栩.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q73" id="q73-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q73-1">
+    <h1>徐</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q73" id="q73-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q73-2">
+    <h1>栩</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q73" id="q73-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q73-3">
+    <h1>笙</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q73" id="q73-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q73-4">
+    <h1>翊</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q73_next" id="next" value="下一題" onclick="javascript:location.href='#ques74'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques74"></a><br><br>
+  <input type="checkbox" class="hidden" value="q74" onclick="myFunction(this.value)" id="audio74">
+  <label class="audio-label" for="audio74">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q74" controls><source src="audio/74_徊.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q74" id="q74-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q74-1">
+    <h1>踟</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q74" id="q74-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q74-2">
+    <h1>懷</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q74" id="q74-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q74-3">
+    <h1>排</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q74" id="q74-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q74-4">
+    <h1>徊</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q74_next" id="next" value="下一題" onclick="javascript:location.href='#ques75'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques75"></a><br><br>
+  <input type="checkbox" class="hidden" value="q75" onclick="myFunction(this.value)" id="audio75">
+  <label class="audio-label" for="audio75">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q75" controls><source src="audio/75_曳.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q75" id="q75-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q75-1">
+    <h1>意</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q75" id="q75-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q75-2">
+    <h1>曳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q75" id="q75-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q75-3">
+    <h1>義</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q75" id="q75-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q75-4">
+    <h1>易</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q75_next" id="next" value="下一題" onclick="javascript:location.href='#ques76'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques76"></a><br><br>
+  <input type="checkbox" class="hidden" value="q76" onclick="myFunction(this.value)" id="audio76">
+  <label class="audio-label" for="audio76">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q76" controls><source src="audio/76_緻.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q76" id="q76-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q76-1">
+    <h1>志</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q76" id="q76-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q76-2">
+    <h1>桎</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q76" id="q76-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q76-3">
+    <h1>智</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q76" id="q76-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q76-4">
+    <h1>緻</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q76_next" id="next" value="下一題" onclick="javascript:location.href='#ques77'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques77"></a><br><br>
+  <input type="checkbox" class="hidden" value="q77" onclick="myFunction(this.value)" id="audio77">
+  <label class="audio-label" for="audio77">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q77" controls><source src="audio/77_虧.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q77" id="q77-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q77-1">
+    <h1>虧</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q77" id="q77-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q77-2">
+    <h1>饋</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q77" id="q77-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q77-3">
+    <h1>勸</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q77" id="q77-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q77-4">
+    <h1>虢</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q77_next" id="next" value="下一題" onclick="javascript:location.href='#ques78'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques78"></a><br><br>
+  <input type="checkbox" class="hidden" value="q78" onclick="myFunction(this.value)" id="audio78">
+  <label class="audio-label" for="audio78">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q78" controls><source src="audio/78_募.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q78" id="q78-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q78-1">
+    <h1>木</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q78" id="q78-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q78-2">
+    <h1>幕</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q78" id="q78-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q78-3">
+    <h1>募</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q78" id="q78-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q78-4">
+    <h1>篡</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q78_next" id="next" value="下一題" onclick="javascript:location.href='#ques79'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques79"></a><br><br>
+  <input type="checkbox" class="hidden" value="q79" onclick="myFunction(this.value)" id="audio79">
+  <label class="audio-label" for="audio79">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q79" controls><source src="audio/79_憧.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q79" id="q79-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q79-1">
+    <h1>崇</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q79" id="q79-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q79-2">
+    <h1>幢</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q79" id="q79-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q79-3">
+    <h1>憧</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q79" id="q79-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q79-4">
+    <h1>衝</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q79_next" id="next" value="下一題" onclick="javascript:location.href='#ques80'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques80"></a><br><br>
+  <input type="checkbox" class="hidden" value="q80" onclick="myFunction(this.value)" id="audio80">
+  <label class="audio-label" for="audio80">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q80" controls><source src="audio/80_覬.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q80" id="q80-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q80-1">
+    <h1>忌</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q80" id="q80-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q80-2">
+    <h1>覬</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q80" id="q80-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q80-3">
+    <h1>覦</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q80" id="q80-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q80-4">
+    <h1>嫉</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q80_next" id="next" value="下一題" onclick="javascript:location.href='#ques81'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques81"></a><br><br>
+  <input type="checkbox" class="hidden" value="q81" onclick="myFunction(this.value)" id="audio81">
+  <label class="audio-label" for="audio81">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q81" controls><source src="audio/81_闆.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q81" id="q81-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q81-1">
+    <h1>闆</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q81" id="q81-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q81-2">
+    <h1>商</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q81" id="q81-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q81-3">
+    <h1>坂</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q81" id="q81-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q81-4">
+    <h1>扳</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q81_next" id="next" value="下一題" onclick="javascript:location.href='#ques82'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques82"></a><br><br>
+  <input type="checkbox" class="hidden" value="q82" onclick="myFunction(this.value)" id="audio82">
+  <label class="audio-label" for="audio82">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q82" controls><source src="audio/82_懦.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q82" id="q82-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q82-1">
+    <h1>糯</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q82" id="q82-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q82-2">
+    <h1>諾</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q82" id="q82-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q82-3">
+    <h1>儒</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q82" id="q82-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q82-4">
+    <h1>懦</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q82_next" id="next" value="下一題" onclick="javascript:location.href='#ques83'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques83"></a><br><br>
+  <input type="checkbox" class="hidden" value="q83" onclick="myFunction(this.value)" id="audio83">
+  <label class="audio-label" for="audio83">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q83" controls><source src="audio/83_餚.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q83" id="q83-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q83-1">
+    <h1>餚</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q83" id="q83-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q83-2">
+    <h1>淆</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q83" id="q83-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q83-3">
+    <h1>爻</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q83" id="q83-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q83-4">
+    <h1>笅</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q83_next" id="next" value="下一題" onclick="javascript:location.href='#ques84'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques84"></a><br><br>
+  <input type="checkbox" class="hidden" value="q84" onclick="myFunction(this.value)" id="audio84">
+  <label class="audio-label" for="audio84">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q84" controls><source src="audio/84_娉.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q84" id="q84-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q84-1">
+    <h1>娉</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q84" id="q84-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q84-2">
+    <h1>拚</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q84" id="q84-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q84-3">
+    <h1>聘</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q84" id="q84-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q84-4">
+    <h1>姘</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q84_next" id="next" value="下一題" onclick="javascript:location.href='#ques85'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques85"></a><br><br>
+  <input type="checkbox" class="hidden" value="q85" onclick="myFunction(this.value)" id="audio85">
+  <label class="audio-label" for="audio85">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q85" controls><source src="audio/85_繽.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q85" id="q85-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q85-1">
+    <h1>冰</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q85" id="q85-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q85-2">
+    <h1>濱</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q85" id="q85-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q85-3">
+    <h1>繽</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q85" id="q85-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q85-4">
+    <h1>緡</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q85_next" id="next" value="下一題" onclick="javascript:location.href='#ques86'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques86"></a><br><br>
+  <input type="checkbox" class="hidden" value="q86" onclick="myFunction(this.value)" id="audio86">
+  <label class="audio-label" for="audio86">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q86" controls><source src="audio/86_涎.mp3" type="audio/mpeg"></audio>
+  </label>  
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q86" id="q86-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q86-1">
+    <h1>鹹</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q86" id="q86-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q86-2">
+    <h1>嫌</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q86" id="q86-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q86-3">
+    <h1>絃</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q86" id="q86-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q86-4">
+    <h1>涎</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q86_next" id="next" value="下一題" onclick="javascript:location.href='#ques87'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques87"></a><br><br>
+  <input type="checkbox" class="hidden" value="q87" onclick="myFunction(this.value)" id="audio87">
+  <label class="audio-label" for="audio87">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q87" controls><source src="audio/87_餒.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q87" id="q87-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q87-1">
+    <h1>訥</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q87" id="q87-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q87-2">
+    <h1>哪</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q87" id="q87-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q87-3">
+    <h1>餒</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q87" id="q87-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q87-4">
+    <h1>餼</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q87_next" id="next" value="下一題" onclick="javascript:location.href='#ques88'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques88"></a><br><br>
+  <input type="checkbox" class="hidden" value="q88" onclick="myFunction(this.value)" id="audio88">
+  <label class="audio-label" for="audio88">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q88" controls><source src="audio/88_鄙.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q88" id="q88-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q88-1">
+    <h1>匕</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q88" id="q88-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q88-2">
+    <h1>鄙</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q88" id="q88-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q88-3">
+    <h1>陋</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q88" id="q88-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q88-4">
+    <h1>彼</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q88_next" id="next" value="下一題" onclick="javascript:location.href='#ques89'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques89"></a><br><br>
+  <input type="checkbox" class="hidden" value="q89" onclick="myFunction(this.value)" id="audio89">
+  <label class="audio-label" for="audio89">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q89" controls><source src="audio/89_擅.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q89" id="q89-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q89-1">
+    <h1>擅</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q89" id="q89-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q89-2">
+    <h1>善</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q89" id="q89-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q89-3">
+    <h1>膳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q89" id="q89-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q89-4">
+    <h1>撢</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q89_next" id="next" value="下一題" onclick="javascript:location.href='#ques90'" disabled>
+</section>
+
+<section class="ques">
+  <a name="ques90"></a><br><br>
+  <input type="checkbox" class="hidden" value="q90" onclick="myFunction(this.value)" id="audio90">
+  <label class="audio-label" for="audio90">
+    <img src="img/volume_icon.png">
+    <audio class="hidden" id="q90" controls><source src="audio/90_愜.mp3" type="audio/mpeg"></audio>
+  </label> 
+  <br><br>
+  <input type="radio" class="hidden radio-label" name="q90" id="q90-1" value="1" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q90-1">
+    <h1>慳</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q90" id="q90-2" value="2" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q90-2">
+    <h1>愜</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q90" id="q90-3" value="3" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q90-3">
+    <h1>鍥</h1>
+  </label>
+  <input type="radio" class="hidden radio-label" name="q90" id="q90-4" value="4" onclick="check_radio(this.name)" disabled/>
+  <label class="item-label" for="q90-4">
+    <h1>切</h1>
+  </label><br>
+  <input type="button" class="button" style="vertical-align:middle" name="q90_next" id="next" value="下一題" onclick="javascript:location.href='#output'" disabled>
+</section>
+
+<section></section>
+<section class="output">
+  <a name="output"></a>
+  <br><br><br><br>
+  <h1>測驗結束!</h1>
+  <input type="submit" name="mySubmit" id="mySubmit" value="Download" disabled>
+</section>
+</form>
+
+</body>
+</html>
